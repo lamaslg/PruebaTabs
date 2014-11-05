@@ -70,6 +70,38 @@ angular.module('starter.controllers', [])
 
 
     })
+    .controller('RegistroCtrl', function($scope,Registro,$ionicPopup,$state) {
+        $scope.Usuario={};
+
+        $scope.Registrar=function(){
+
+            Registro.nuevoUsuario($scope.Usuario).then(function(datos){
+                var alert=$ionicPopup.alert({
+                    template: 'Registro correcto',
+                    title: 'Exito'
+
+                });
+
+                $state.go("tab.dash");
+
+
+            },
+            function(err){
+                var alert=$ionicPopup.alert({
+                    template: err,
+                    title: 'Error'
+
+                });
+
+
+                });
+
+
+        };
+
+
+
+    })
 .controller('FriendsCtrl', function($scope, Friends) {
   $scope.friends = Friends.all();
 })

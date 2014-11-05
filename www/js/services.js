@@ -25,7 +25,45 @@ angular.module('starter.services', [])
 
 
     })
+    .factory('Registro',function($http,$q){
 
+      var url="https://cursoph.azure-mobile.net/tables/usuario";
+
+      return{
+
+        nuevoUsuario:function(usuario){
+          var request=$http({
+            method: 'post',
+            url: url,
+            data: usuario});
+
+          return request.then(insertOk,insertError);
+
+        }
+
+      }
+
+      function insertOk(resp){
+
+        return resp.data;
+
+      }
+     function insertError(resp){
+
+       if(! angular.isObject(resp.data) || !resp.data.message){
+
+         return($q.reject("Error desconocido"));
+
+
+       }
+
+       return ($q.reject(resp.data.message));
+
+     }
+
+
+
+    })
 .factory('Friends', function() {
   // Might use a resource here that returns a JSON array
 

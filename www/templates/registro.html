@@ -3,27 +3,23 @@
         <div class="list">
             <label class="item item-input">
                 <span class="input-label">Nombre</span>
-                <input type="text">
+                <input type="text" ng-model="Usuario.nombre">
             </label>
             <label class="item item-input">
                 <span class="input-label">Fecha de nacimiento</span>
-                <input type="date">
+                <input type="date" ng-model="Usuario.fechaNacimiento">
             </label>
 
             <label class="item item-input">
                 <span class="input-label">Username</span>
-                <input type="text">
+                <input type="text" ng-model="Usuario.login">
             </label>
             <label class="item item-input">
                 <span class="input-label">Password</span>
-                <input type="password">
-            </label>
-            <label class="item item-input">
-                <span class="input-label">Reperir password</span>
-                <input type="password">
+                <input type="password" ng-model="Usuario.password">
             </label>
             <label class="item">
-                <button class="button button-block button-calm">Guardar</button>
+                <button class="button button-block button-calm" ng-click="Registrar()">Guardar</button>
             </label>
 
         </div>

@@ -58,7 +58,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         views: {
           'inicio-login': {
             templateUrl: 'templates/registro.html',
-            controller: 'LoginCtrl'
+            controller: 'RegistroCtrl'
           }
         }
       })
