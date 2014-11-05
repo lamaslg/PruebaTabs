@@ -2,7 +2,8 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope) {
 })
-    .controller('LoginCtrl', function($scope,$state,$http,$ionicLoading,$ionicPopup) {
+    .controller('LoginCtrl', function($scope,$state,$http,
+                                      $ionicLoading,$ionicPopup,Usuario) {
 
         $scope.usuario={};
 
@@ -77,5 +78,8 @@ angular.module('starter.controllers', [])
   $scope.friend = Friends.get($stateParams.friendId);
 })
 
-.controller('AccountCtrl', function($scope) {
+.controller('AccountCtrl', function($scope,Usuario) {
+
+        $scope.usuario=Usuario.get();
+
 });
