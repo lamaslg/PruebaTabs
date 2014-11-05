@@ -3,6 +3,29 @@ angular.module('starter.services', [])
 /**
  * A simple example service that returns some data.
  */
+
+.factory('Usuario',function(){
+
+      var usuario={};
+
+      return{
+        get:function(){
+
+          return usuario;
+
+        },
+
+        set:function(usu){
+          usuario=usu;
+
+        }
+
+
+      }
+
+
+    })
+
 .factory('Friends', function() {
   // Might use a resource here that returns a JSON array
 

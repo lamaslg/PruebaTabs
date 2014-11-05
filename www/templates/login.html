@@ -3,14 +3,14 @@
     <div class="list">
         <label class="item item-input">
             <span class="input-label">Username</span>
-            <input type="text">
+            <input type="text" ng-model="usuario.login">
         </label>
         <label class="item item-input">
             <span class="input-label">Password</span>
-            <input type="password">
+            <input type="password" ng-model="usuario.password">
         </label>
         <label class="item">
-            <button class="button button-block button-calm">Inicio</button>
+            <button class="button button-block button-calm" ng-click="inicioSesion()">Inicio</button>
         </label>
         <label class="item">
             <button class="button button-block button-calm" ui-sref="inicio.registro">Registro</button>
