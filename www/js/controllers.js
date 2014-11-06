@@ -102,8 +102,15 @@ angular.module('starter.controllers', [])
 
 
     })
-.controller('FriendsCtrl', function($scope, Friends) {
-  $scope.friends = Friends.all();
+.controller('ProductosCtrl', function($scope, Productos) {
+  $scope.productos = [];
+
+     Productos.getProductos().then(function(data){
+
+        $scope.productos=data;
+
+     });
+
 })
 
 .controller('FriendDetailCtrl', function($scope, $stateParams, Friends) {

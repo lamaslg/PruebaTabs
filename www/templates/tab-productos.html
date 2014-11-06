@@ -1,0 +1,11 @@
+<ion-view title="Productos">
+  <ion-content>
+    <ion-list>
+      <ion-item ng-repeat="item in productos" type="item-text-wrap" href="#/tab/friend/{{item.id}}">
+       <img ng-src="{{item.icono}}" style="max-width: 80px;" />
+
+        {{item.nombre}}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
