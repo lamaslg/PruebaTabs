@@ -34,7 +34,7 @@ angular.module('starter.controllers', [])
                         $http.post(url2,token).then(function(res){
 
                             localStorage.setItem("token",JSON.stringify(res.data));
-                            Ficheros.escribir();
+                            //Ficheros.escribir();
 
                             $state.go("tab.dash");
 
@@ -123,7 +123,31 @@ angular.module('starter.controllers', [])
 
 
 })
+    .controller('MapaCtrl', function($scope) {
 
+        $scope.mapaCreado=function(map){
+
+          $scope.map=map;
+
+        };
+
+        $scope.miPosicion=function(){
+
+            navigator.geolocation.getCurrentPosition(function(pos){
+
+                $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude,pos.coords.longitude));
+
+
+            },
+            function(error){
+
+                alert(error.message);
+
+            }
+            );
+
+        }
+    })
 .controller('AccountCtrl', function($scope,Usuario) {
 
         $scope.usuario=Usuario.get();
