@@ -113,8 +113,15 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('FriendDetailCtrl', function($scope, $stateParams, Friends) {
-  $scope.friend = Friends.get($stateParams.friendId);
+.controller('ProductoDetailCtrl', function($scope, $stateParams, Productos) {
+        $scope.producto = {};
+
+        Productos.get($stateParams.productoId).then(function(data){
+            $scope.producto=data[0];
+
+        });
+
+
 })
 
 .controller('AccountCtrl', function($scope,Usuario) {

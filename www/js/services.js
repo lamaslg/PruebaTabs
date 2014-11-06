@@ -85,9 +85,15 @@ angular.module('starter.services', [])
       return (request.then(exito,error));
     },
 
-    get: function(friendId) {
-      // Simple index lookup
-      return friends[friendId];
+    get: function(productoId) {
+        var url="https://cursoph.azure-mobile.net/tables/productos?$filter=id eq '"+productoId+"'";
+
+        var request=$http({
+            method: 'get',
+            url: url
+        });
+
+        return (request.then(exito,error));
     }
   }
 
