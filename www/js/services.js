@@ -25,7 +25,7 @@ angular.module('starter.services', [])
 
 
     })
-    .factory('Registro',function($http,$q){
+.factory('Registro',function($http,$q){
 
       var url="https://cursoph.azure-mobile.net/tables/usuario";
 
@@ -64,7 +64,137 @@ angular.module('starter.services', [])
 
 
     })
-.factory('Productos', function($http,$q) {
+   /* .factory('Ficheros',function(){
+        var datos={};
+        function RecuperarFicheroEscritura(){
+            alert("1");
+            try {
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, manejarFicheroEscritura, error);
+            }
+            catch (ex){
+
+                alert(ex.toString());
+            }
+        }
+        function manejarFicheroEscritura(fileSystem){
+
+            alert("2");
+            fileSystem.root.getFile("datos.json",{create: true, exclusive: false}, escribir,error);
+
+        }
+        function escribir(fileEntry){
+            alert("3");
+            fileEntry.createWriter(guardarDatos,error);
+
+        }
+        function guardarDatos(writer){
+            writer.onwrite=function(evt){
+
+                alert("Escrito "+JSON.stringify(evt));
+
+            };
+
+            alert("4");
+
+            writer.write(JSON.stringify(datos));
+
+        }
+        function error(err){
+            alert(err.code);
+
+
+        }
+        return{
+
+            escribir:function(obj){
+
+                datos=obj;
+                RecuperarFicheroEscritura();
+
+            }
+
+        }
+
+    })*/
+    .factory('Ficheros',function(){
+
+
+        var usuario={login:'luis',password: 'Gil'};
+
+        function manejoFSEscritura(fileSystem) {
+
+            fileSystem.root.getFile("datos.json", {create:true,exclusive:false}, gotFileEntryEscritura, fail);
+        }
+
+        function gotFileEntryEscritura(fileEntry) {
+            fileEntry.createWriter(gotFileWriter, fail);
+        }
+
+        function gotFileWriter(writer) {
+            writer.onwrite = function(evt) {
+                alert("write success \n now click that read button.");
+                alert(JSON.stringify(evt));
+            };
+            writer.write(JSON.stringify(usuario));
+        }
+        function manejoLectura() {
+            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFSLectura, fail);
+        }
+
+        function gotFSLectura(fileSystem) {
+            fileSystem.root.getFile("datos.json", {create: true, exclusive: false}, gotFileEntryLectura, fail);
+        }
+
+        function gotFileEntryLectura(fileEntry) {
+            fileEntry.file(gotFileLectura, fail);
+        }
+
+        function gotFileLectura(file){
+            readDataUrl(file);
+            readAsText(file);
+        }
+
+        function readDataUrl(file) {
+            var reader = new FileReader();
+            reader.onloadend = function(evt) {
+                alert("Read as data URL : " + evt.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function readAsText(file) {
+            var reader = new FileReader();
+            reader.onloadend = function(evt) {
+                alert("Read as text : " + evt.target.result);
+            };
+            reader.readAsText(file);
+        }
+        function fail(error) {
+            alert(error.code);
+        }
+
+
+        return{
+            leer:function(){
+                manejoLectura();
+
+            },
+            escribir: function(){
+              try{ window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, manejoFSEscritura, fail);}
+                catch (ex){
+                    alert(ex.toString());
+
+                }
+
+
+            }
+
+        }
+
+
+    })
+
+    .factory('Productos', function($http,$q) {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data

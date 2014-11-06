@@ -3,7 +3,7 @@ angular.module('starter.controllers', [])
 .controller('DashCtrl', function($scope) {
 })
     .controller('LoginCtrl', function($scope,$state,$http,
-                                      $ionicLoading,$ionicPopup,Usuario) {
+                                      $ionicLoading,$ionicPopup,Usuario,Ficheros) {
 
         $scope.usuario={};
 
@@ -34,7 +34,7 @@ angular.module('starter.controllers', [])
                         $http.post(url2,token).then(function(res){
 
                             localStorage.setItem("token",JSON.stringify(res.data));
-
+                            Ficheros.escribir();
 
                             $state.go("tab.dash");
 
