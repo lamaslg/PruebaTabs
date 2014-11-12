@@ -102,7 +102,7 @@ angular.module('starter.controllers', [])
 
 
     })
-.controller('ProductosCtrl', function($scope, Productos,Estado,BaseDatos) {
+.controller('ProductosCtrl', function($scope, Productos,Estado,BaseDatos,$q) {
   $scope.productos = [];
 
         //if(Estado.getNetworkConnection()) {
@@ -112,7 +112,12 @@ angular.module('starter.controllers', [])
                 $scope.productos = data;
                 BaseDatos.guardarDatos(data);
                 BaseDatos.recuperarDatos();
+                $q.when(BaseDatos.recuperarDatos()).then(function(r){
 
+                    alert(r);
+
+
+                });
             });
         /*}
         else{

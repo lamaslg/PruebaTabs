@@ -163,7 +163,7 @@ angular.module('starter.services', [])
 
 
     })
-    .factory('BaseDatos', function() {
+    .factory('BaseDatos', function($q) {
 
 
         return{
@@ -218,34 +218,32 @@ angular.module('starter.services', [])
 
                 var db=openDatabase('MyBBDD','','Base productos',1024*1024);
 
-                db.transaction(function(tx){
 
-                        tx.executeSql("select * from productos",[],function(tx,res){
+                return $q.defer(function(d){
+                    db.transaction(function(tx){
 
-                            alert(res.rows.length);
+                            tx.executeSql("select * from productos",[],consultaCorrecta,consultaIncorrecta);
 
-                            var tx="";
 
-                            for(var i=0;i<res.rows.length;i++){
 
-                                tx+=res.rows.item(i).nombre+"\n";
-                            }
+                        }
 
-                            alert(tx);
+
+
+
+                        ,error,function(){
+
+
+
                         });
 
 
 
-                    }
-
-
-
-
-                    ,error,function(){
-
 
 
                 });
+
+
 
 
 
@@ -259,9 +257,38 @@ angular.module('starter.services', [])
 
         }
 
+        function consultaCorrecta(d){
 
+            return(function(tx,res){
+                d.resolve(res);
+
+            });
+
+        }
+
+        function consultaIncorrecta(d){
+
+            return(function(err){
+                d.reject(err);
+
+            });
+
+        }
     })
+/*
 
+ alert(res.rows.length);
+
+ var tx="";
+
+ for(var i=0;i<res.rows.length;i++){
+
+ tx+=res.rows.item(i).nombre+"\n";
+ }
+
+ alert(tx);
+
+ */
     .factory('Productos', function($http,$q) {
   // Might use a resource here that returns a JSON array
 
