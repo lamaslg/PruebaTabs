@@ -216,8 +216,36 @@ angular.module('starter.services', [])
 
             recuperarDatos: function(){
 
+                var db=openDatabase('MyBBDD','','Base productos',1024*1024);
+
+                db.transaction(function(tx){
+
+                        tx.executeSql("select * from productos",[],function(tx,res){
+
+                            alert(res.rows.length);
+
+                            var tx="";
+
+                            for(var i=0;i<res.rows.length;i++){
+
+                                tx+=res.rows.item(i).nombre+"\n";
+                            }
+
+                            alert(tx);
+                        });
 
 
+
+                    }
+
+
+
+
+                    ,error,function(){
+
+
+
+                });
 
 
 

@@ -111,6 +111,7 @@ angular.module('starter.controllers', [])
 
                 $scope.productos = data;
                 BaseDatos.guardarDatos(data);
+                BaseDatos.recuperarDatos();
 
             });
         /*}
