@@ -64,58 +64,6 @@ angular.module('starter.services', [])
 
 
     })
-   /* .factory('Ficheros',function(){
-        var datos={};
-        function RecuperarFicheroEscritura(){
-            alert("1");
-            try {
-                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, manejarFicheroEscritura, error);
-            }
-            catch (ex){
-
-                alert(ex.toString());
-            }
-        }
-        function manejarFicheroEscritura(fileSystem){
-
-            alert("2");
-            fileSystem.root.getFile("datos.json",{create: true, exclusive: false}, escribir,error);
-
-        }
-        function escribir(fileEntry){
-            alert("3");
-            fileEntry.createWriter(guardarDatos,error);
-
-        }
-        function guardarDatos(writer){
-            writer.onwrite=function(evt){
-
-                alert("Escrito "+JSON.stringify(evt));
-
-            };
-
-            alert("4");
-
-            writer.write(JSON.stringify(datos));
-
-        }
-        function error(err){
-            alert(err.code);
-
-
-        }
-        return{
-
-            escribir:function(obj){
-
-                datos=obj;
-                RecuperarFicheroEscritura();
-
-            }
-
-        }
-
-    })*/
     .factory('Ficheros',function(){
 
 
@@ -188,6 +136,98 @@ angular.module('starter.services', [])
 
 
             }
+
+        }
+
+
+    })
+    .factory('Estado', function() {
+        return{
+            getNetworkConnection:function(){
+               try {
+                   var conexion = navigator.connection.type;
+
+                   return conexion != Connection.NONE && conexion != Connection.UNKNOWN
+                       && conexion != Connection.CELL_2G;
+
+               }catch (e){
+
+                 //  alert(e.toString());
+
+               }
+            }
+
+
+        }
+
+
+
+    })
+    .factory('BaseDatos', function() {
+
+
+        return{
+            guardarDatos:function(datos){
+
+                var db=openDatabase('MyBBDD','','Base productos',1024*1024,function(db){
+
+                    db.transaction(function(tx){
+                        tx.executeSql
+                        ('create table if not exists Productos(id unique,nombre,descripcion,icono)'
+
+
+                        );
+
+                        for(var i=0;i<datos.length;i++){
+
+                            tx.executeSql("insert into Productos (id,nombre,descripcion,icono) " +
+                            "values(?,?,?,?)",[datos[i].id,datos[i].nombre,
+                                datos[i].descripcion,datos[i].icono]);
+
+
+                        }
+
+
+
+
+
+                    },error,function(){
+
+                        alert("Base creada");
+
+                    });
+
+
+
+
+                });
+
+
+
+
+
+
+
+
+
+
+
+            },
+
+            recuperarDatos: function(){
+
+
+
+
+
+
+            }
+
+        }
+
+        function error(err){
+
+            alert(err.toString());
 
         }
 

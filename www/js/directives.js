@@ -9,7 +9,7 @@ angular.module('stater.directives', [])
 
                 function init(){
                     var mapOptions={
-                        center: new google.maps.LatLng(43.23523,-39.33123),
+                        center: new google.maps.LatLng(43.23523,-3.33123),
                         zoom:16,
                         mapTypeId:google.maps.MapTypeId.ROADMAP
 

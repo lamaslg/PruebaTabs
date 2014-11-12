@@ -102,14 +102,23 @@ angular.module('starter.controllers', [])
 
 
     })
-.controller('ProductosCtrl', function($scope, Productos) {
+.controller('ProductosCtrl', function($scope, Productos,Estado,BaseDatos) {
   $scope.productos = [];
 
-     Productos.getProductos().then(function(data){
+        //if(Estado.getNetworkConnection()) {
 
-        $scope.productos=data;
+            Productos.getProductos().then(function (data) {
 
-     });
+                $scope.productos = data;
+                BaseDatos.guardarDatos(data);
+
+            });
+        /*}
+        else{
+
+            alert("Sin red");
+
+        }*/
 
 })
 
